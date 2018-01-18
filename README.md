@@ -1,1 +1,1 @@
-## Random scripts I right to automate non-hacking stuff
+## Random scripts I write to automate non-hacking stuff
