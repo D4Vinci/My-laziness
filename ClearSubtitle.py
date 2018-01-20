@@ -12,8 +12,7 @@ def clear(srt):
 	  f.close()
 	  extracted =font_regex.findall(subtitles)
 	  extracted+=shit_regex.findall(subtitles)
-	  all = extracted + codes
-	  for i in all :
+	  for i in extracted :
 		  subtitles=subtitles.replace(i,"")
 	  open(srt,"w").write(subtitles)
 
