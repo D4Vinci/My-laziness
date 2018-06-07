@@ -1,30 +1,30 @@
 #Author:karim shoair (D4Vinci)
-#Extract the famous stargazers for any github repo
+#Extract the famous followers for any github user
 import mechanicalsoup as ms
 from tqdm import tqdm
 import readline,sys
 browser = ms.StatefulBrowser()
-url = input("Repository link : ")+"/stargazers"
-check_str = "This repository has no more stargazers."
+url = input("Profile link : ")+"?tab=followers"
+check_str = "That’s it. You’ve reached the end of"
 G,W,B = '\033[92m','\x1b[37m','\033[94m'
 end   = '\033[0m'
 
 def grab_users(grab):
-	tags = grab.soup.findAll("span",{"class":"css-truncate css-truncate-target"})
+	tags = grab.soup.findAll("a",{"class":"d-inline-block no-underline mb-1"})
 	profiles = []
 	for i in tags:
 		try:
-			a = i.a.attrs
+			a = i.attrs
 		except:
-				continue
-		profiles.append("http://git-awards.com/users"+i.a.attrs['href'])
+			continue
+		profiles.append("http://git-awards.com/users"+a['href'])
 	return profiles
 
 def loop_over_pages(link):
 	profiles = []
 	print("[+] Checked pages ",end="")
 	for i in range(1,1000):
-		page = browser.open(link+"?page="+str(i))
+		page = browser.open(link+"&page="+str(i))
 		if check_str in page.content.decode():
 			break
 		profiles.extend( grab_users(page) )
@@ -33,8 +33,8 @@ def loop_over_pages(link):
 	return profiles
 
 print("[+] Grabing users...")
-stargazers = loop_over_pages(url)
-print("\n[+] Found "+str(len(stargazers))+" stargazer(s)!" )
+follow = loop_over_pages(url)
+print("\n[+] Fetched "+str(len(follow))+" follower(s)!" )
 print("[+] Now searching who's have more than 400 stars at total...\n")
 
 def grab_stars_total(profiles):
@@ -51,8 +51,8 @@ def grab_stars_total(profiles):
 				 famous_people[person.split("/")[-1]]=stars
 	 return famous_people
 
-famous = grab_stars_total(stargazers)
-print("[+] Found "+B+str(len(famous))+end+" famous stargazers and they are :" )
+famous = grab_stars_total(follow)
+print("[+] Found "+B+str(len(famous))+end+" famous followers and they are :" )
 for user in famous.keys():
 	print(G+"http://github.com/"+user+W+" | With stars => "+B+str(famous[user]))
 print(end+"\n")

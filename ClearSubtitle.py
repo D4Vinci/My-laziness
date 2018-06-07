@@ -1,11 +1,11 @@
 #Author : D4Vinci
-#Clear subtitles files from coloring codes to play on non color-supported devices like tv in my case
-#Usage : ClearSubtitle.py <Subtitle_file> Or just run is
+#Clear subtitles files from coloring codes to play on non color-supported devices like TVs in my case
+#Usage : ClearSubtitle.py <Subtitle_file> Or just run it
 
 import sys,re,os
 
 def clear(srt):
-	  font_regex = re.compile(r"<.*>")  #<font face=""> </font> <i> </i> <b> </b>...
+	  font_regex = re.compile(r"<.*?>")  #<font face=""> </font> <i> </i> <b> </b>...
 	  shit_regex = re.compile(r"{.*}") #{\fs50\fad(1000,1500)\c&#008008&\..\...\..\....}
 	  f=open(srt,"r")
 	  subtitles=f.read()

@@ -1,5 +1,5 @@
 #Author:karim shoair (D4Vinci)
-#Downloading youtube videos as mp4 and as mp3 
+#Downloading youtube videos as mp4 and as mp3
 import os,sys
 
 try:
@@ -7,7 +7,7 @@ try:
 	url  = sys.argv[2]
 except:
 	print("Error missing arguments!")
-	print("youtube.py (mp3/mp4) <url>")
+	print("yt.py (mp3/mp4) <url>")
 	sys.exit(0)
 
 if Type.lower()=="mp3":
